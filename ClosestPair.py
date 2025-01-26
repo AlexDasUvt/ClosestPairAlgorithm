@@ -95,11 +95,34 @@ def plot_points_and_pair(points, closest_pair):
     plt.xlabel('X-coordinate')
     plt.ylabel('Y-coordinate')
     
+    # Add grid
+    plt.grid()
+    
     # Show the plot
     plt.show()
 
-# Input points here:
-points = [(1, 3)]
+def read_points_from_file(file_path):
+    points = []
+    
+    # Open the file for reading
+    with open(file_path, 'r') as file:
+        for line in file:
+            # Strip any surrounding whitespace/newlines and split the line into x and y
+            x, y = line.strip().split()
+            
+            # Convert x and y to float or int and create a tuple
+            point = (float(x), float(y))
+            
+            # Append the tuple to the points list
+            points.append(point)
+    
+    return points
+
+try:
+    points = read_points_from_file('points.txt')
+except FileNotFoundError:
+    print("File not found. Please make sure the file exists in the current directory.")
+    exit()
 
 # Find the closest pair and their distance
 min_dist, closest_pair = closest_pair(points)
